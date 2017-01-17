@@ -32,8 +32,8 @@ Each row represents the ordering for a given grade level. For example, this row:
 ... means that students should work first on K.RF, K.RL, then K.RI.
 
 2/ student_tests.csv -- Each student takes a standardized test aligned to the Common Core,
-and for each domain, they are given an approximate grade level. The student should work
-on material at the grade level for which they tested - for example, if they received
+and for each domain, they are given an approximate grade level. ***The student should work
+on material at the grade level for which they tested ***- for example, if they received
 a grade of 1 for domain RL, then they should study the RL standards at the 1st grade level.
 
 Each row represents a single student's scores; there is one column for each domain. If the student
