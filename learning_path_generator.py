@@ -1,15 +1,6 @@
 import csv, sys
 
 
-def get_student_lowest_grade_level(student_test_score):
-    grades = student_test_score
-    grades.pop('Student Name')
-    grades = grades.values()
-    if 'K' in grades:
-        return 0
-    else: 
-        return int(min(grades))
-
 def main():
 
     domain_order_file = sys.argv[1]
@@ -31,9 +22,8 @@ def main():
             student_test_scores.append(row)
 
     for student_test_score in student_test_scores:
-        lowest_grade_level = get_student_lowest_grade_level(student_test_score)
         student_units = ()
-        for grade in range(lowest_grade_level, len(domains_ordered_by_class)):
+        for grade in range(0, len(domains_ordered_by_class)):
             units_for_grade = domains_ordered_by_class[grade][1]
             for unit in units_for_grade:
                 if student_test_score[unit] == 'K':
