@@ -1,7 +1,7 @@
 import csv, sys
 
 
-DOMAINS_PER_STUDENT = 5
+MAX_UNITS_PER_STUDENT = 5
 
 
 def read_domains_ordered_by_grade_from_file(domain_order_file):
@@ -24,7 +24,7 @@ def read_student_test_scores_from_file(student_test_scores_file):
     return student_test_scores
 
 def create_individual_learning_path(domains_ordered_by_grade, student_test_score):
-    domains_per_student = 0
+    units_per_student = 0
     path = student_test_score['Student Name']
     for grade_with_units in domains_ordered_by_grade:
         grade = int(grade_with_units[0]) if grade_with_units[0] != 'K' else 0
@@ -37,9 +37,9 @@ def create_individual_learning_path(domains_ordered_by_grade, student_test_score
 
             if student_test_score[unit] <= grade:
                 path = path + ',' + str(grade) + '.' + unit
-                domains_per_student += 1
+                units_per_student += 1
 
-            if domains_per_student == DOMAINS_PER_STUDENT:
+            if units_per_student == MAX_UNITS_PER_STUDENT:
                 return path
     return path
 
