@@ -53,8 +53,6 @@ def create_student_learning_paths(domains_ordered_by_grade, student_test_scores)
     for student_test_score in student_test_scores:
         student_units = create_individual_learning_path(domains_ordered_by_grade, student_test_score)
         student_learning_paths.append(student_units)
-    for student_unit in student_learning_paths:
-        print student_unit
     return student_learning_paths
 
 
