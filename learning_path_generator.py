@@ -1,6 +1,9 @@
 import csv, sys
 
 
+DOMAINS_PER_STUDENT = 5
+
+
 def read_domains_ordered_by_grade_from_file(domain_order_file):
     domains_ordered_by_grade = ()
     with open(domain_order_file, 'r') as data_file:
@@ -20,25 +23,33 @@ def read_student_test_scores_from_file(student_test_scores_file):
             student_test_scores.append(row)
     return student_test_scores
 
+def create_individual_learning_path(domains_ordered_by_grade, student_test_score):
+    domains_per_student = 0
+    path = student_test_score['Student Name']
+    for grade_with_units in domains_ordered_by_grade:
+        grade = int(grade_with_units[0]) if grade_with_units[0] != 'K' else 0
+        units_for_grade = grade_with_units[1]
+        for unit in units_for_grade:
+            if student_test_score[unit] == 'K':
+                student_test_score[unit] = 0
+            else:
+                student_test_score[unit] = int(student_test_score[unit])
+
+            if student_test_score[unit] <= grade:
+                path = path + ',' + str(grade) + '.' + unit
+                domains_per_student += 1
+
+            if domains_per_student == DOMAINS_PER_STUDENT:
+                return path
+    return path
+
 def create_student_learning_paths(domains_ordered_by_grade, student_test_scores):
     student_learning_paths = []
     for student_test_score in student_test_scores:
-        student_units = ()
-        for grade_with_units in domains_ordered_by_grade:
-            grade = grade_with_units[0]
-            units_for_grade = grade_with_units[1]
-            for unit in units_for_grade:
-                if student_test_score[unit] == 'K':
-                    student_test_score[unit] = 0
-                else:
-                    student_test_score[unit] = int(student_test_score[unit])
-                if student_test_score[unit] <= grade:
-                    student_units = student_units + ((grade, unit), )
-                else:
-                    pass
-        print student_units[:5]
-        print student_test_score['Student Name']
+        student_units = create_individual_learning_path(domains_ordered_by_grade, student_test_score)
         student_learning_paths.append(student_units)
+    for student_unit in student_learning_paths:
+        print student_unit
     return student_learning_paths
 
 def main():
