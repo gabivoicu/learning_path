@@ -9,9 +9,10 @@ def read_domains_ordered_by_grade_from_file(domain_order_file):
     with open(domain_order_file, 'r') as data_file:
         for row in data_file:
             row = row.strip()
+            row = row.replace('K', '0')
             row_elements = row.split(',')
-            class_name = row_elements.pop(0)
-            row_units = ((class_name, tuple(row_elements)), )
+            grade_level = row_elements.pop(0)
+            row_units = ((grade_level, tuple(row_elements)), )
             domains_ordered_by_grade = domains_ordered_by_grade + row_units
     return domains_ordered_by_grade
 
@@ -29,20 +30,21 @@ def create_individual_learning_path(domains_ordered_by_grade, student_test_score
     units_per_student = 0
     path = student_test_score['Student Name']
     for grade_with_units in domains_ordered_by_grade:
-        grade = int(grade_with_units[0]) if grade_with_units[0] != 'K' else 0
+        grade = grade_with_units[0]
         units_for_grade = grade_with_units[1]
         for unit in units_for_grade:
             if student_test_score[unit] == 'K':
-                student_test_score[unit] = 0
-            else:
-                student_test_score[unit] = int(student_test_score[unit])
+                student_test_score[unit] = '0'
 
             if student_test_score[unit] <= grade:
                 path = path + ',' + str(grade) + '.' + unit
                 units_per_student += 1
 
             if units_per_student == MAX_UNITS_PER_STUDENT:
+                path = path.replace('0', 'K')
                 return path
+
+    path = path.replace('0', 'K')
     return path
 
 
