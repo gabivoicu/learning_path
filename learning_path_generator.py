@@ -15,6 +15,7 @@ def read_domains_ordered_by_grade_from_file(domain_order_file):
             domains_ordered_by_grade = domains_ordered_by_grade + row_units
     return domains_ordered_by_grade
 
+
 def read_student_test_scores_from_file(student_test_scores_file):
     student_test_scores = []
     with open(student_test_scores_file, 'r') as data_file:
@@ -22,6 +23,7 @@ def read_student_test_scores_from_file(student_test_scores_file):
         for row in file_reader:
             student_test_scores.append(row)
     return student_test_scores
+
 
 def create_individual_learning_path(domains_ordered_by_grade, student_test_score):
     units_per_student = 0
@@ -43,6 +45,7 @@ def create_individual_learning_path(domains_ordered_by_grade, student_test_score
                 return path
     return path
 
+
 def create_student_learning_paths(domains_ordered_by_grade, student_test_scores):
     student_learning_paths = []
     for student_test_score in student_test_scores:
@@ -52,6 +55,14 @@ def create_student_learning_paths(domains_ordered_by_grade, student_test_scores)
         print student_unit
     return student_learning_paths
 
+
+def write_student_learning_paths_to_file(student_learning_paths):
+    output_file = 'student_learning_paths.csv'
+    with open(output_file, 'w') as data_file:
+        for path in student_learning_paths:
+            data_file.write('{}\n'.format(path))
+
+
 def main():
 
     domain_order_file = sys.argv[1]
@@ -60,7 +71,8 @@ def main():
     domains_ordered_by_grade = read_domains_ordered_by_grade_from_file(domain_order_file)    
     student_test_scores = read_student_test_scores_from_file(student_test_scores_file)
     student_learning_paths = create_student_learning_paths(domains_ordered_by_grade, student_test_scores)
-    # write_student_learning_paths_to_file(student_learning_paths)
+    write_student_learning_paths_to_file(student_learning_paths)
+
 
 if __name__ == '__main__':
     main()
