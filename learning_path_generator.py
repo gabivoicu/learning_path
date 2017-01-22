@@ -2,6 +2,7 @@ import csv, sys
 
 
 MAX_UNITS_PER_STUDENT = 5
+OUTPUT_FILE = 'student_learning_paths.csv'
 
 
 def read_domains_ordered_by_grade_from_file(domain_order_file):
@@ -57,8 +58,7 @@ def create_student_learning_paths(domains_ordered_by_grade, student_test_scores)
 
 
 def write_student_learning_paths_to_file(student_learning_paths):
-    output_file = 'student_learning_paths.csv'
-    with open(output_file, 'w') as data_file:
+    with open(OUTPUT_FILE, 'w') as data_file:
         for path in student_learning_paths:
             data_file.write('{}\n'.format(path))
 
