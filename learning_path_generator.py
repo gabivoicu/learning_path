@@ -6,6 +6,11 @@ OUTPUT_FILE = 'student_learning_paths.csv'
 
 
 def read_domains_ordered_by_grade_from_file(domain_order_file):
+    """Reads ordered domains from a given file and stores them in a tuple of tuples.
+    Each tuple represents a grade level with its available domains in order, represented so:
+    (('1', ('RF', 'RL', 'RI')),)
+    'K' is replaced with '0' to make it easier to do comparisons.
+    """
     domains_ordered_by_grade = ()
     with open(domain_order_file, 'r') as data_file:
         for row in data_file:
@@ -19,6 +24,10 @@ def read_domains_ordered_by_grade_from_file(domain_order_file):
 
 
 def read_student_test_scores_from_file(student_test_scores_file):
+    """Reads student test score data from a given file and stores them in a list of dictionaries.
+    Each student score is stored in a dictionary:
+    {'RL': '3', 'Student Name': 'Albin Stanton', 'RF': '2', 'L': '3', 'RI': 'K'}
+    """
     student_test_scores = []
     with open(student_test_scores_file, 'r') as data_file:
         file_reader = csv.DictReader(data_file)
@@ -28,6 +37,15 @@ def read_student_test_scores_from_file(student_test_scores_file):
 
 
 def create_individual_learning_path(domains_ordered_by_grade, student_test_score):
+    """Creates a learning path for a single student from the domains passed.
+    Starts at the beginning of the available grades and units, and checks each one against the
+    student's score for that particular unit. If the student has scored below or at that grade level,
+    then that particular unit is added to their learning path. For ease of making comparisons, replaces
+    'K' with '0'. Once 5 units have been added to a student's path, the path is returned. If 5 units have
+    not been added and all available grade units options have been exhausted, the path is returned.
+    Returns a learning path as a string containing the student's name followed by the units
+    generated for that student.
+    """
     units_per_student = 0
     path = student_test_score['Student Name']
     for grade_with_units in domains_ordered_by_grade:
@@ -50,6 +68,8 @@ def create_individual_learning_path(domains_ordered_by_grade, student_test_score
 
 
 def create_student_learning_paths(domains_ordered_by_grade, student_test_scores):
+    """Creates an individual learning path for a list of students based on the domains passed.
+    """
     student_learning_paths = []
     for student_test_score in student_test_scores:
         student_units = create_individual_learning_path(domains_ordered_by_grade, student_test_score)
@@ -58,13 +78,17 @@ def create_student_learning_paths(domains_ordered_by_grade, student_test_scores)
 
 
 def write_student_learning_paths_to_file(student_learning_paths):
+    """Writes a list of student learning paths(as string) to the output file.
+    """
     with open(OUTPUT_FILE, 'w') as data_file:
         for path in student_learning_paths:
             data_file.write('{}\n'.format(path))
 
 
 def main():
-
+    """Reads ordered domains and student test scores from two files, passed as command line arguments.
+    Creates individual learning paths for each student and writes them to a new file.
+    """
     domain_order_file = sys.argv[1]
     student_test_scores_file = sys.argv[2]
 
