@@ -1,3 +1,8 @@
+== Running Instructions and General Comments ==
+- This programs was written in Python 2.7, no guarantees given for running under different versions of Python.
+- To run the program, type the following command and this directory level in a CLI: `python learning_path_generator.py data/domain_order.csv data/student_tests.csv`. A new file, `student_learning_paths.csv`, will be generated, containing the learning paths for each student in `student_tests.csv`.
+- To run tests, type the following command and this directory level in a CLI: `python test_learning_path_generator.py`.
+
 == Setup ==
 
 Our mission is to provide the best learning experiences to students, personalized
