@@ -17,8 +17,9 @@ class LearningPathTests(unittest.TestCase):
 
     def test_student_with_no_tests(self):
         self.assertEqual(
-            'K.RF,K.RL,K.RI,1.RF,1.RL',
-            create_individual_learning_path(DOMAINS_ORDERED, {'Student Name': 'Hermione Granger'})
+            'Hermione Granger,K.RF,K.RL,K.RI,1.RF,1.RL',
+            create_individual_learning_path(DOMAINS_ORDERED, {'RL': '', 'Student Name': 'Hermione Granger', 
+                                        'RF': '', 'L': '', 'RI': ''})
         )
 
     def test_student_albin(self):
