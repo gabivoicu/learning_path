@@ -1,7 +1,7 @@
 == Running Instructions and General Comments ==
-- This programs was written in Python 2.7, no guarantees given for running under different versions of Python.
 - To run the program, type the following command and this directory level in a CLI: `python learning_path_generator.py data/domain_order.csv data/student_tests.csv`. A new file, `student_learning_paths.csv`, will be generated, containing the learning paths for each student in `student_tests.csv`.
 - To run tests, type the following command and this directory level in a CLI: `python test_learning_path_generator.py`.
+- This programs was written in Python 2.7, no guarantees given for running under different versions of Python.
 
 == Setup ==
 
@@ -37,8 +37,8 @@ Each row represents the ordering for a given grade level. For example, this row:
 ... means that students should work first on K.RF, K.RL, then K.RI.
 
 2/ student_tests.csv -- Each student takes a standardized test aligned to the Common Core,
-and for each domain, they are given an approximate grade level. ***The student should work
-on material at the grade level for which they tested ***- for example, if they received
+and for each domain, they are given an approximate grade level. **The student should work
+on material at the grade level for which they tested **- for example, if they received
 a grade of 1 for domain RL, then they should study the RL standards at the 1st grade level.
 
 Each row represents a single student's scores; there is one column for each domain. If the student
@@ -65,7 +65,6 @@ domains that may or may not be Common Core.
 
 == Coding ==
 
-This is an opportunity for you to try out a real-world problem like the ones we face at eSpark.
-It's also a chance to show how you'd approach and code. We are looking for clear, concise code,
+It's a chance to show how you'd approach and code. We are looking for clear, concise code,
 that is easy to understand, easy to change, and well tested.
 
